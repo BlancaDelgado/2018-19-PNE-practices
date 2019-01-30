@@ -1,4 +1,7 @@
+print('-----')
+
 print('This program sums up the first 100 integer numbers.')
+print('-----\n')
 
 total_sum = 0
 for i in range(0,101): # Add until 100, range doesn't count with last value.
