@@ -24,5 +24,5 @@ tl = len(s)
 perc = round(100.0 * na / tl, 1)
 
 print('The total length is: {}'.format(tl))
-print('The percentage of As is: {}%.'format(perc))
+print('The percentage of As is: {}%'.format(perc))
 
