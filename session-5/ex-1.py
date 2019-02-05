@@ -16,3 +16,13 @@ s = 'AGTACACATTA'
 
 na = count_a(s)
 print('The number of As is: {}'.format(na) )
+
+# Calculate the total sequence length
+tl = len(s)
+
+# Calculate the percentage of As in the sequence
+perc = round(100.0 * na / tl, 1)
+
+print('The total length is: {}'.format(tl))
+print('The percentage of As is: {}%.'format(perc))
+
