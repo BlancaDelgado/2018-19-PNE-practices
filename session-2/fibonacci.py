@@ -1,6 +1,6 @@
 print('-----')
 print('This program calculates the nth term of the fibonacci series.')
-print('-----')
+print('-----\n')
 
 
 def fibonacci(nth):
