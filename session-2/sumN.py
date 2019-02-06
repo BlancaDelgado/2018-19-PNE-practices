@@ -1,5 +1,6 @@
+print('-----\n')
 print('This program sums the first n integers. ')
-
+print('-----\n')
 
 def sumn(n):
 

@@ -1,5 +1,4 @@
 print('-----')
-
 print('This program sums up the first 100 integer numbers.')
 print('-----\n')
 
