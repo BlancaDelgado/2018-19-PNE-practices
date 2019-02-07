@@ -24,7 +24,7 @@ with open('basis.txt', 'r') as file:
 # Clean the content
 seq = rfile.replace('\n', '').upper()
 
-# Workout the functions
+# Workout the functions of the program
 print('TOTAL LENGTH ----- ', len(seq))
 
 for base in 'ACGT':
