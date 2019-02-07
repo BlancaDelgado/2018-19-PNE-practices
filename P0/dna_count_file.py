@@ -14,9 +14,17 @@ def num_basis(base, seq):
 
 
 #-- Main program
-seq = input('Introduce DNA sequence: ').upper()
 
-print('\n')
+# Open file and save the content in a variable
+with open('basis.txt', 'r') as file:
+
+    rfile = file.read()
+    file.close()
+
+# Clean the content
+seq = rfile.replace('\n', '').upper()
+
+# Workout the functions
 print('TOTAL LENGTH ----- ', len(seq))
 
 for base in 'ACGT':
