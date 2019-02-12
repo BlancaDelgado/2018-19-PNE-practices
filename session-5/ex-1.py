@@ -4,7 +4,7 @@ def count_a(seq):
     # Counter fro the As
     result = 0
 
-    for b in seq :
+    for b in seq:
         if b == 'A':
             result += 1
 
@@ -12,7 +12,7 @@ def count_a(seq):
     return result
 
 # Main program
-s = 'AGTACACATTA'
+s = input('Please enter the sequence: ')
 
 na = count_a(s)
 print('The number of As is: {}'.format(na) )
