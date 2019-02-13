@@ -1,7 +1,7 @@
-# Modified 'ex-1.py' for counting the sequence introduced by the user.
+# Modified 'ex-1-user.py' for counting all bases.
 
-def count_a(seq):
-    """Counting the number of As in the sequence."""
+def count_bases(seq, base):
+    """Counting the number of bases in the sequence."""
 
     # Counter fro the As
     result = 0
@@ -13,7 +13,7 @@ def count_a(seq):
     # Result the result
     return result
 
-# Main program
+#--Main program
 s = input('Please enter the sequence: ')
 
 na = count_a(s)
