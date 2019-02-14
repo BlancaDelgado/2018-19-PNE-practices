@@ -1,0 +1,65 @@
+# File with Seq class for working with sequences.
+
+
+class Seq:
+    """
+    Class for working with sequences.
+
+    METHODS
+    ----
+    1.-Class initialization
+    2.-len()
+    3.-complement()
+    4.-reverse()
+    5.-count(base): returns number of times 'base' appears.
+    6.-perc(base): returns percentage of base over total number of bases.
+
+
+    ATTRIBUTES
+    ----
+    1.- strbase: contains the sequence as a string
+
+
+    """
+
+    def __init__(self, strbase):
+        """
+        Passes string with sequence when creating the object.
+        """
+        self.strbase = strbase  # attribute self.strbase created
+
+    def len(self):
+        """
+        Obtains length of the sequence.
+        """
+        return len(self.strbase)
+
+    def complement(self):
+        """
+        Obtains complement sequence of the object's sequence.
+        """
+
+        dict_complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+
+        # CREATE AN ORDERED LIST WITH COMPLEMENTARY BASES
+        complement_list = []
+        for b in self.strbase:
+            complement_list.append(dict_complement[b])
+
+        # JOIN LIST TO CREATE STRING
+        complement = ''.join(complement_list)
+
+        return complement
+
+    def reverse(self):
+        """
+        Returns reverse sequence.
+        """
+
+        # SUM NEW VALUE FIRST (last in seq)
+        # TO THE ALREADY SAVED CHARACTERS (first in original seq)
+        reverse = ''
+        for i in self.strbase:
+            reverse = i + reverse
+
+        return reverse

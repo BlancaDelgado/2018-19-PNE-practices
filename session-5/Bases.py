@@ -22,5 +22,3 @@ def count_bases(seq):
         dict_bases.update({base: num_bases})
 
     return dict_bases
-
-
