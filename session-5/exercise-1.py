@@ -1,34 +1,48 @@
 # Modified 'ex-1-user.py' for counting all bases.
 
-def count_bases(seq, base):
-    """Counting the number of bases in the sequence."""
 
-    # Counter fro the As
-    result = 0
+def count_bases(seq):
+    """ Counts all bases (A, T, C, G).
 
-    for b in seq:
-        if b == 'A':
-            result += 1
+        -----
+        Returns a dictionary with four entries."""
 
-    # Result the result
-    return result
+    dict_bases = {}  # empty dictionary {base:counter}
 
-#--Main program
+    # COUNT BASES, ONE AT A TIME!
+    for base in 'ACGT':
+
+        num_bases = 0
+        for element in seq:  # check how many bases are in the sequence
+
+            if element == base:
+                num_bases += 1
+
+        dict_bases.update({base: num_bases})
+
+    return dict_bases
+
+
+# --Main program
+
+# ASK USER FOR SEQUENCE
 s = input('Please enter the sequence: ')
 
-na = count_a(s)
-print('The number of As is: {}'.format(na) )
+print('\n----------INFORMATION ABOUT SEQUENCE----------')
 
-# Calculate the total sequence length
-tl = len(s)
+# PRINT TOTAL LENGTH
+total_length = len(s)
+print('\nThis sequence is', total_length, 'bases in length.')
 
-# Calculate the percentage of As in the sequence
-try:
-    perc = round(100.0 * na / tl, 1)
+# PRINT NUMBER OF BASES AND PERCENTAGE
+for base in 'ATCG':
+    print('\nBase', base)
 
-except ZeroDivisionError:
-    perc = 0
+    counter = count_bases(s)[base]
+    print('- Counter:', counter)
 
-print('The total length is: {}'.format(tl))
-print('The percentage of As is: {}%'.format(perc))
-
+    try:
+        perc = round(100.0 * counter / total_length, 1)
+    except ZeroDivisionError:
+        perc = 0
+    print('- Percentage: {}%'.format(perc))
