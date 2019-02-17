@@ -40,8 +40,3 @@ while seq:
 
         # CLOSE SOCKET
         s.close()
-
-
-
-
-
