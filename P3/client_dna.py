@@ -31,30 +31,31 @@ def get_msg():
     characteristics = ['len', 'complement', 'reverse']
     counts = ['countA', 'countC', 'countG', 'countT']
     percs = ['percA', 'percC', 'percG', 'percT']
-    OPTIONS = no_ans + characteristics + counts + percs  # possibilities for the answers
+    options = no_ans + characteristics + counts + percs  # possibilities for the answers
 
     while new_command:
         new_command = input('Enter a command (press ENTER when finished!): ')
 
-        if new_command in OPTIONS:
+        if new_command in options:
             full_command += '\n' + new_command
 
         else:
-            print('ERROR: Please introduce a valid option ({}'.format(OPTIONS) + ')')
+            print('ERROR: Please introduce a valid option ({}'.format(options) + ')')
 
     msg = seq + full_command
     return msg
 
 
-def interact(msg):
+def interact(msg, location):
     """
     Client interacts with server: sending and receiving messages
     :param msg: message from client
+    :param location: tuple (IP, PORT)
     :return: response from server
     """
     while True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # create socket
-        s.connect((IP, PORT))  # connect socket
+        s.connect(location)  # connect socket
         s.send(str.encode(msg))  # send message
         resp = s.recv(2048).decode()  # receive message
         s.close()  # finally, close socket
@@ -72,14 +73,16 @@ def main():
     c_msg = get_msg()
 
     # INTERACT WITH SERVER
-    IP = '127.0.0.1'
-    PORT = 8080
+    ip = '127.0.0.1'
+    port = 8080
+    location = (ip, port)
 
-    s_msg = interact(c_msg)
-
+    s_msg = interact(c_msg, location)
+    print(s_msg)
     return
+
 
 try:
     main()
-except KeyBoardInterrupt:
+except KeyboardInterrupt:
     exit()
