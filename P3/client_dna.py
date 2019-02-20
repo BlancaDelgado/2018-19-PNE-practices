@@ -21,7 +21,7 @@ def get_msg():
     :return: seq and commands separated by < \n >
     """
     # FIRST LINE
-    seq = input('Enter your sequence (leave blank to check server): ')
+    seq = input('Enter your sequence (leave blank to check server): ').upper()
 
     # FOLLOWING LINES
     new_command = True  # allow to start loop
@@ -34,13 +34,13 @@ def get_msg():
     options = no_ans + characteristics + counts + percs  # possibilities for the answers
 
     while new_command:
-        new_command = input('Enter a command (press ENTER when finished!): ')
+        new_command = input('Enter a command (press ENTER when finished): ').lower()
 
         if new_command in options:
             full_command += '\n' + new_command
 
         else:
-            print('ERROR: Please introduce a valid option ({}'.format(options) + ')')
+            print('ERROR: Please introduce a valid option ({}'.format(options) + ')!')
 
     msg = seq + full_command
     return msg
