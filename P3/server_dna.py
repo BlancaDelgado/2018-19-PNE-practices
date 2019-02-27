@@ -9,11 +9,17 @@ def process(cs):
     Processes the message from the client
 
     :param cs: client socket
-    :return: list with all client requests (DNA sequence and commands)
+    :return: empty msg or list with all client requests (DNA sequence and commands)
     """
     msg = cs.recv(2048).decode('utf-8')  # obtain message from client
-    msg_list = msg.split('\n')  # make a list of the message with all requests
-    return msg_list
+
+    if msg == 'NO SEQUENCE':
+        msg = ['NO SEQUENCE']
+
+    else:
+        msg = msg.split('\n')  # make a list of the message with all requests
+
+    return msg
 
 
 def attend_seq(req):
@@ -27,16 +33,13 @@ def attend_seq(req):
     seq = str(req[0])
 
     # IF SEQUENCE IS EMPTY...
-    if not seq:
+    if seq == 'NO SEQUENCE':
         return 'ALIVE!'  # try server
 
     # IF SEQUENCE IS NOT EMPTY...
-    values = 'ACGT'
-
     for i in seq:
-        if i not in values:
-            return 'ERROR'# values DON'T match
-
+        if i not in 'ACGT':
+            return 'ERROR'  # values DON'T match
 
     return 'OK'  # no errors where found
 
@@ -75,7 +78,7 @@ def attend_com(req, com):
 
 
 IP = '127.0.0.1'
-PORT = 8080
+PORT = 8092
 
 MAX_OPEN_REQUESTS = 5
 

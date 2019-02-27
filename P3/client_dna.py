@@ -25,11 +25,11 @@ def get_msg():
     seq = input('- Enter your sequence (leave blank to check server): ').upper()
 
     if not seq:  # seq is empty - False; do not continue
-        return seq
+        return 'NO SEQUENCE'
 
     # FOLLOWING LINES
     new_command = True  # allow to start loop
-    full_command = ''  # define variable
+    full_command = ''  # need prior reference
 
     no_ans = ['']
     characteristics = ['len', 'complement', 'reverse']
@@ -43,10 +43,7 @@ def get_msg():
         if new_command in options:
             full_command += '\n' + new_command
 
-        elif new_command in no_ans:
-            pass
-
-        else:
+        elif (new_command not in options) and (new_command not in no_ans):
             print('  ERROR: Please introduce a valid option!')
             print('  Options: {}'.format(options) + '.\n')
 
@@ -82,7 +79,7 @@ def main():
 
         # INTERACT WITH SERVER
         ip = '127.0.0.1'
-        port = 8080
+        port = 8092
         location = (ip, port)
 
         s_msg = interact(c_msg, location)
