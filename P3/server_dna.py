@@ -3,6 +3,7 @@
 import socket  # allow client-server connection
 from P1.Seq import Seq  # access class with sequence functions
 
+
 def process(cs):
     """
     Processes the message from the client
@@ -26,21 +27,51 @@ def attend_seq(req):
     seq = str(req[0])
 
     # IF SEQUENCE IS EMPTY...
-    if seq == False:
-        return 'ALIVE!'
+    if not seq:
+        return 'ALIVE!'  # try server
 
     # IF SEQUENCE IS NOT EMPTY...
-    values = []  # check what values make the sequence
+    values = 'ACGT'
 
     for i in seq:
         if i not in values:
-            values.append(i)
+            return 'ERROR'# values DON'T match
 
-    if values in 'ACGT':
-        return 'OK'
 
-    else:
-        return 'ERROR'
+    return 'OK'  # no errors where found
+
+
+def attend_com(req, com):
+    """
+    Obtains answer from Seq class according to the command
+
+    len: calculate the sequence length
+    complement: calculate complement
+    reverse: calculate reverse
+    countA: calculate number of bases (same for T, G, C)
+    percA: calculate percentage of A bases (same for T, G, C)
+
+    :param req: list with sequence and series of commands
+    :param com: command to be analyzed
+    :return: information from Seq (matching with command)
+    """
+
+    operation = Seq(req[0])
+
+    if com == 'len':
+        return operation.len()
+    elif com == 'complement':
+        return operation.complement()
+    elif com == 'reverse':
+        return operation.reverse()
+    elif 'count' in com:
+        for i in 'ACGT':
+            if i in com:
+                return operation.count(i)
+    elif 'perc' in com:
+        for i in 'ACGT':
+            if i in com:
+                return operation.perc(i)
 
 
 IP = '127.0.0.1'
@@ -60,19 +91,20 @@ while True:  # connect to clients
     (clientsocket, address) = s.accept()  # accept connections from client sockets
     print('Attending client: {}'.format(address))  # attend the client now
 
+    # GET MESSAGE
     requests = process(clientsocket)  # get the information of the client
-    check_seq = attend_seq(requests)  # check if the seq is alright (ALIVE!, OK, ERROR)
-    print(check_seq)
 
-    try_msg = 'hi'
-    clientsocket.send(str.encode(try_msg))  # send message
+    # FIRST LINE
+    answer = attend_seq(requests)  # check if the seq is alright (ALIVE!, OK, ERROR)
+
+    # FOLLOWING LINES
+    if answer == 'OK':
+
+        for command in requests[1:]:
+            answer += '\n'
+            answer += str(attend_com(requests, command))
+
+    # SEND MESSAGE
+    clientsocket.send(str.encode(answer))
 
     clientsocket.close()  # close socket
-
-
-# --MESSAGE FROM SERVER
-
-
-
-# FOLLOWING LINES
-# Corresponding to the lines in the client
