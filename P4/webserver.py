@@ -1,6 +1,7 @@
 # Web server with index and access to blue, pink and error.
 
-import socket
+import socket  # allow communication
+import termcolor  # allow terminal colors
 
 # BASIC CONFIGURATIONS
 
@@ -12,11 +13,13 @@ MAX_OPEN_REQUESTS = 5
 
 def process(client_socket):
 
+    request = client_socket.recv(2048).decode('utf-8')
+    termcolor.cprint(('\nREQUEST MESSAGE: \n' + request), 'green')
+
     filename = 'index.html'
     with open(filename, 'r') as file:
         content = file.read()
-        file.close
-
+        file.close()
 
     status_line = 'HTTP/1.1 200 OK \r\n'
     header = 'Content-Type: text/html \r\n'
@@ -44,10 +47,8 @@ while True:
     print('...waiting for connections at: {}, {}'.format(IP, PORT))
     (client, address) = server.accept()
 
-    print('...attending connections from client: {}, {}'.format(address))
+    print('...attending connections from client: {}'.format(address))
     process(client)
-
-
 
 
 # RESOURCE '/', INDEX
