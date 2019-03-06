@@ -6,7 +6,7 @@ import termcolor  # allow terminal colors
 # BASIC CONFIGURATIONS
 
 IP = '127.0.0.1'
-PORT = 8080
+PORT = 8081
 
 MAX_OPEN_REQUESTS = 5
 
@@ -14,21 +14,40 @@ MAX_OPEN_REQUESTS = 5
 def process(client_socket):
 
     request = client_socket.recv(2048).decode('utf-8')
-    termcolor.cprint(('\nREQUEST MESSAGE: \n' + request), 'green')
 
-    filename = 'index.html'
-    with open(filename, 'r') as file:
-        content = file.read()
-        file.close()
+    if request:
+        termcolor.cprint(('\nREQUEST MESSAGE: \n' + request), 'green')
 
-    status_line = 'HTTP/1.1 200 OK \r\n'
-    header = 'Content-Type: text/html \r\n'
-    header += 'Content-Length: {}\r\n'.format(len(str.encode(content)))
+    if ' ' in request:  # avoid errors
+        line_commands = request.split(' ')
+        resource = line_commands[1]
 
-    response = status_line + header + content
-    client_socket.send(str.encode(response))
+        # PAGE OPTIONS
+        if resource == '/':
+            filename = 'index.html'
 
-    client_socket.close()
+        elif resource == '/blue':
+            filename = 'blue.html'
+
+        elif resource == '/pink':
+            filename = 'pink.html'
+
+        else:
+            filename = 'error.html'
+
+        # OPEN CORRECT PAGE
+        with open(filename, 'r') as file:
+            content = file.read()
+            file.close()
+
+        status_line = 'HTTP/1.1 200 OK \r\n'
+        header = 'Content-Type: text/html \r\n'
+        header += 'Content-Length: {}\r\n'.format(len(str.encode(content)))
+
+        response = status_line + header + content
+        client_socket.send(str.encode(response))
+
+        client_socket.close()
 
     return
 
@@ -49,15 +68,3 @@ while True:
 
     print('...attending connections from client: {}'.format(address))
     process(client)
-
-
-# RESOURCE '/', INDEX
-
-
-# RESOURCE '/blue', BLUE
-
-
-# RESOURCE '/pink', PINK
-
-
-# UNKNOWN RESOURCE, ERROR
