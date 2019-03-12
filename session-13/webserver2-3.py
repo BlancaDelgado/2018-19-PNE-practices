@@ -5,7 +5,7 @@ import socketserver
 import termcolor
 
 # Define the Server's port
-PORT = 8000
+PORT = 8081
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -24,14 +24,26 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # It is a happy server: It always returns a message saying
         # that everything is ok
 
-        # Message to send back to the clinet
-        contents = "I am the happy server! :-)"
+        # Message to send back to the client
+
+        requests = self.requestline.split(' ')
+        resource = requests[1]
+
+        if resource == '/':
+            filename = 'index.html'
+
+        else:
+            filename = 'error.html'
+
+        with open(filename, 'r') as file:
+            contents = file.read()
+            file.close()
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/plain')
+        self.send_header('Content-Type', 'text/html')
         self.send_header('Content-Length', len(str.encode(contents)))
 
         # The header is finished
