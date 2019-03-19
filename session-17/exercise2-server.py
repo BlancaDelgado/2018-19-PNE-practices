@@ -32,7 +32,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             content_type = 'text/html'
 
         elif resource == "/listusers":
-            f = open("person.json", 'r')
+            f = open("people.json", 'r')
             code = 200
             # Read the file
             contents = f.read()
