@@ -5,6 +5,7 @@
 # - Repeat the process in a loop
 # - Verify that client works examining Server's console
 
+
 # IMPORT CLASS SEQ (to obtain sequences)
 from P1.Seq import Seq
 
