@@ -8,7 +8,6 @@ IP = "127.0.0.1"
 PORT = 8089
 MAX_OPEN_REQUESTS = 5
 
-
 def process_client(cs):
     """Process the client request.
     Parameters:  cs: socket for communicating with the client"""
