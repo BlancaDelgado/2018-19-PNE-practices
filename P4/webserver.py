@@ -3,6 +3,7 @@
 import socket  # allow communication
 import termcolor  # allow terminal colors
 
+
 # BASIC CONFIGURATIONS
 
 IP = '127.0.0.1'
