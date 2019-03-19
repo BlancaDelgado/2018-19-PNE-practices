@@ -1,6 +1,5 @@
 # File with Seq class for working with sequences.
 
-
 class Seq:
     """
     Class for working with sequences.
