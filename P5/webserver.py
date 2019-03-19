@@ -5,7 +5,6 @@ import termcolor  # allow terminal colors
 import http.server  # module for http connections
 
 # BASIC CONFIGURATIONS
-
 PORT = 8081  # server's port
 
 
