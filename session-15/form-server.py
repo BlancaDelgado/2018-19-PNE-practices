@@ -6,7 +6,6 @@ import termcolor
 
 PORT = 8000
 
-
 class TestHandler(http.server.BaseHTTPRequestHandler):  # whatever classed derived from the HTTP library
 
     def do_GET(self):  # DO NOT CHANGE NAME HERE
