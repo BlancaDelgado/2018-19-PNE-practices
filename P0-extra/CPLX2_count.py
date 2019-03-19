@@ -2,7 +2,7 @@ print('-----')
 print('This program counts the number of basis (A, C, G, T) of the sequence CPLX2 saved in its file.')
 print('-----\n')
 
-#-- Main program
+# -- Main program
 
 # Open the document
 with open('CPLX2.txt', 'r') as file:
