@@ -21,4 +21,3 @@ print('TOTAL LENGTH ----- ', len(seq))
 
 for base in 'ACGT':
     print('Total number of', base, ': ', seq.count(base))
-
