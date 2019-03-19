@@ -2,7 +2,6 @@ print('-----')
 print('This program calculates the nth term of the fibonacci series.')
 print('-----\n')
 
-
 def fibonacci(nth):
     """Calculates the nth term of the fibonacci series."""
 
