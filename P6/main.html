@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Main Page</title>
+    </head>
+
+    <body>
+        <h1>ADN SEQUENCES</h1>
+        <br>
+
+        <form action="myserver" method="get">
+            <b>SEQUENCE: </b>
+            <input type="text" name="msg">
+            <br><br><br>
+
+            · Check to calculate total length  ---
+            <input type="checkbox" name="chk">
+            <br><br>
+
+            · Choose operations and specify base  ---
+            <select name="operation">
+                <option value="count">Counter</option>
+                <option value="perc">Percentage</option>
+            </select>
+
+            <input type="radio" name="base" value="A" checked> A
+            <input type="radio" name="base" value="C"> C
+            <input type="radio" name="base" value="T"> T
+            <input type="radio" name="base" value="G"> G
+            <br><br>
+
+            <input type="submit" />
+        </form>
+
+    </body>
+</html>
