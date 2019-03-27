@@ -5,7 +5,7 @@ import socketserver
 import termcolor
 
 PORT = 8000
-<br><br>
+
 class TestHandler(http.server.BaseHTTPRequestHandler):  # whatever classed derived from the HTTP library
 
     def do_GET(self):  # DO NOT CHANGE NAME HERE
@@ -25,6 +25,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):  # whatever classed deriv
 
         # -- Sending the body of the response message
         self.wfile.write(str.encode(contents))
+
 
 
 # -- Main program
