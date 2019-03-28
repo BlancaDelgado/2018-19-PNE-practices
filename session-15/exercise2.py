@@ -16,11 +16,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # READ FILE DEPENDING ON PATH
         if self.path == '/' or 'favicon' in self.path:
-            f200 = open('exercise1_form.html', 'r')
+            f200 = open('exercise2_form.html', 'r')
             contents = f200.read()
 
         elif 'echoserver' in self.path:
-            echo = self.path.replace('+', ' ').split('=')[1]
+
+            # DIVIDE COMMANDS OF PATH
+            if 'chk' in self.path:
+                echo_input = self.path.split('&')[0]  # select echo input
+                echo = echo_input.split('=')[1].upper()  # capitalize echo
+
+            else:
+                echo = self.path.replace('+', ' ').split('=')[1]
+
             contents = """
             <html lang="en" dir="ltr">
     

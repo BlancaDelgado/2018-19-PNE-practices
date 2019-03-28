@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <title>Main page</title>
 </head>
-<body>
+<body style="background-color:yellow">
+    <h1>Echo SERVER:</h1>
     <form action="echoserver" method="get">
         Message to send to the server:<br>
-        <input type="text" name="msg">
+        <input type="text" name="msg"><br>
+
+        Check for echo in capital letters
+        <input type="checkbox" name="chk">
+        <br><br>
 
         <input type="submit" value="SEND"/>
     </form>
