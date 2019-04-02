@@ -6,7 +6,8 @@ import termcolor
 
 from P1.Seq import Seq
 
-PORT = 8002
+PORT = 8004
+
 
 def attend_seq(seq):
     """
@@ -37,14 +38,17 @@ class SeqHandler(http.server.BaseHTTPRequestHandler):
         # READ FILE DEPENDING ON PATH
         # If we are starting program
         if self.path == '/' or 'favicon' in self.path:
+            print('INITIAL PATH...')
             f_200 = open('main.html', 'r')
             contents = f_200.read()
 
         # If sequence is sent
         elif 'seq' in self.path:
+            print('ANALYZING SEQUENCE...')
 
             path = self.path.replace('/seq?', '').replace(' HTTP/1.1', '')
             inputs = path.split('&')
+            print('- Inputs: ', inputs)
 
             input_seq = inputs[0].split('=')[1]
 
@@ -54,29 +58,38 @@ class SeqHandler(http.server.BaseHTTPRequestHandler):
             if not seq:  # if there IS NOT sequence, error
                 f_error = open('error.html', 'r')
                 contents = f_error.read()
+                print('- Sequence not valid.')
 
             # ANALYZE INPUTS
             else:  # if there IS sequence, continue with inputs
+                print('- Sequence valid.')
 
                 SeqClass = Seq(seq)
 
+                # SAVE ALL OPTIONS
+
+                # In case options are not selected...
+                seq_len = "---"
+                count = False
+                perc = False
+
                 for i in inputs:
-                    i_type = i[0]
-                    i_value = i[1]
+                    element = i.split('=')
+                    i_type = element[0]
+                    i_value = element[1]
 
                     # 1.- CHECK LENGTH
-                    len = ""  # in case it is not selected
                     if i_type == 'chk':
-                        len = SeqClass.len()
-                        len = "<p>· Sequence length: {len}<p>".format(len=len)
+                        seq_len = SeqClass.len()
 
                     # 2.- CHECK OPERATIONS
-                    count = False
-                    perc = False
                     elif i_type == 'operation':
+
                         if i_value == 'count':
+                            operation = '"counter"'
                             count = True
                         elif i_value == 'perc':
+                            operation = '"percentage"'
                             perc = True
 
                     # 3.- CHECK BASE
@@ -84,36 +97,43 @@ class SeqHandler(http.server.BaseHTTPRequestHandler):
                         base = i_value
 
                 # CALCULATE OPERATIONS
-                if count:
-                    count = SeqClass.count(base)
-                    count = "<p>·Operation count on the {base}: {count}".format(base=base, count=count)
+                if count==True:
+                    result = SeqClass.count(base)
 
-                elif perc:
+                elif perc==True:
                     perc = SeqClass.perc(base)
-                    perc = "<p>·Operation percentage on the {base}: {perc}".format(base=base, perc=perc)
+                    result = "{}%".format(perc)
 
+                else:
+                    result = '---'
 
                 contents = """
-                <html>
-                <header>
-                    <meta charset="UTF-8">
-                    <title>Result</title>
-                </header>
-                
-                <body>
-                    <h1><u><RESULTS</u></h1>
-                    <p>· Sequence given by user: {seq}</p><br>
-                    
-                """ + len + """
-                </body>
-                
-                
-                </html>
-                """
-
+                        <html>
+                            <header>
+                                <meta charset="UTF-8">
+                                <title>Result</title>
+                            </header>
+        
+                            <body>
+                                <h1><u>RESULTS</u>:</h1>
+                                <br>
+                                <p>· <b>SEQUENCE:</b> {seq}</p>
+                                <p>· Sequence length: {seq_len}<p>
+                                <p>· Operation {operation} on {base}: {result}</p>
+                                
+                                
+                                <br>
+                                <a href="/">[Main page]</a>
+                                
+                            </body>
+        
+        
+                        </html>
+                        """.format(seq=seq, seq_len=seq_len, operation=operation, base=base, result=result)
 
         # If the resource doesn't exist
         else:
+            print('ERROR...')
             f_error = open('error.html', 'r')
             contents = f_error.read()
 
