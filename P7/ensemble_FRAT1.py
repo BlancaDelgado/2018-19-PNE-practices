@@ -36,13 +36,14 @@ if not r.ok:  # close system when problems
 # -- main program
 from P1.Seq import Seq
 c = Seq(frat1)  # class w/ commands
+bases = 'ACGT'
 
 print('\n---------- PROGRAM FOR ANALYSING FRAT1 ----------')
 print('SEQUENCE:', frat1, '\n')
 
 # Create a dict ( base : number of that base in seq )
 b_dict = {}
-for i in 'ACGT':
+for i in bases:
     num_i = c.count(i)  # obtain num of base
     b_dict[i] = num_i  # add base + num
 
@@ -61,9 +62,13 @@ print('· Total number of T bases:', b_dict['T'])
 
 # 3.- Most popular base and percentage
 max_num = max(b_dict.values())
-max_base = []
+max_base = []  # list w/ bases that have the max number
+for i in bases:
+    if b_dict[i] == max_num:
+        max_base.append(i)
 
-print(max_base)
+
+print(str(max_base))
 
 # 4.- Percentage of all bases in gene
 
