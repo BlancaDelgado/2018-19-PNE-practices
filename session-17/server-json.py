@@ -1,3 +1,4 @@
+
 # Server with index main page that returns JSON file when requested.
 
 import http.server
