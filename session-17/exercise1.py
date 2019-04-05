@@ -32,7 +32,7 @@ for i in range(0,num_people):
     termcolor.cprint("Phone numbers: ", 'green', end='')
     print(len(phoneNumbers))
 
-    # Print all the numbers
+    # Print all numbers
     for i, num in enumerate(phoneNumbers):
         termcolor.cprint("  Phone {}:".format(i), 'blue')
 
