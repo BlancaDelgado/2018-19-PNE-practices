@@ -38,7 +38,7 @@ from P1.Seq import Seq
 c = Seq(frat1)  # class w/ commands
 bases = 'ACGT'
 
-print('\n---------- PROGRAM FOR ANALYSING FRAT1 ----------')
+print('\n------------------- PROGRAM FOR ANALYSING FRAT1 -------------------')
 print('SEQUENCE:', frat1, '\n')
 
 # Create a dict ( base : number of that base in seq )
@@ -47,29 +47,51 @@ for i in bases:
     num_i = c.count(i)  # obtain num of base
     b_dict[i] = num_i  # add base + num
 
-print(b_dict)
 
-
-# 1.- Number of bases in gene
+# 1.- NUMBER OF BASES IN GENE
 num_bases = 0
 for i in b_dict:
     num_bases += b_dict[i]
 
 print('· Total number of bases:', num_bases)
 
-# 2.- Number of T bases in gene
+# 2.- NUMBER OF T BASES IN GENE
 print('· Total number of T bases:', b_dict['T'])
 
-# 3.- Most popular base and percentage
+# 4.1.- CALCULATE PERCENTAGE OF ALL BASES IN GENE
+perc_dict = {}
+for a in bases:
+    num_a = c.count(a)
+
+    try:
+        perc_a = int(round((num_a / num_bases) * 100, 0))
+    except ZeroDivisionError:
+        perc_a = 0
+
+    perc_dict[a] = perc_a
+
+# 3.- MOST POPULAR BASE AND PERCENTAGE
 max_num = max(b_dict.values())
-max_base = []  # list w/ bases that have the max number
+
+max_base = []  # Allow ALL bases that have the max number
 for i in bases:
     if b_dict[i] == max_num:
-        max_base.append(i)
 
+        # Calculate percentage too
+        perc_max = "({}%)".format(perc_dict[i])
+        max_b_and_p = ' '.join([i, perc_max])
+        max_base.append(max_b_and_p)
 
-print(str(max_base))
+max_base_msg = ', '.join(max_base)
 
-# 4.- Percentage of all bases in gene
+print('· Most popular base:', max_base_msg)
 
+# 4.2.- PRINT ALL PERCENTAGES
+perc_bases = []
+for c in bases:
+    perc_format = '({}%)'.format(perc_dict[c])
+    b_and_p = ' '.join([c, perc_format])
+    perc_bases.append(b_and_p)
 
+perc_bases_msg = ', '.join(perc_bases)
+print('· Percentages for all bases:', perc_bases_msg)
