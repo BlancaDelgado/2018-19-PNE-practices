@@ -20,7 +20,7 @@ headers = {'User-Agent': 'http-client'}
 
 # -- Connect to the server
 # -- NOTICE it is an HTTPS connection!
-# -- If we do not specify the port, the standar one
+# -- If we do not specify the port, the standard one
 # -- will be used
 conn = http.client.HTTPSConnection(HOSTNAME)
 
