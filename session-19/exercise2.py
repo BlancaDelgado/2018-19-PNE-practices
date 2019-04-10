@@ -6,15 +6,24 @@ import json
 import termcolor
 
 
-def connect(ENDPOINT):
-    """
-    Connects to metaweather and obtains response depending on the ENDPOINT requested.
-    :param ENDPOINT: web address to request specific operations.
-    :return: json file with requested information.
-    """
+# -- Main program
 
-    # define all variables
-    HOSTNAME = 'www.metaweather.com'
+n = 8
+print('-'*n + ' WEATHER ' + '-'*n)
+try:
+
+
+
+    # 1.- ASK FOR CAPITAL
+    city = input('Introduce location: ')
+    city = city.lower()
+
+    # 2.- FIND WOEID OF CITY
+
+    # define variables for connection
+    ENDPOINT = '/api/location/search/?query=' + city
+
+    HOSTNAME = "www.metaweather.com"
     METHOD = "GET"
 
     headers = {'User-Agent': 'http-client'}
@@ -26,16 +35,11 @@ def connect(ENDPOINT):
 
     r = conn.getresponse()
     txt_json = r.read().decode("utf-8")
+    conn.close()
+
     data = json.load(txt_json)
 
     termcolor.cprint('Response received {num} {OK}'.format(num=r.status, OK=r.reason), 'green')
-    return data
-
-
-def get_woeid(city):
-
-    endpoint = '/api/location/search/?query='+city
-    data = connect(endpoint)
 
     # ELABORATED RESPONSE
     if data:
@@ -46,30 +50,15 @@ def get_woeid(city):
         city_woeid = False
         print('ERROR: this city is not in the data base.\n')
 
-    return city_woeid
 
+    print(city_woeid)
+    # 2.- PRINT INFO
 
-# -- Main program
+    # Time
 
-n = 8
-print('-'*n + ' WEATHER ' + '-'*n)
-try:
+    # Temperature
 
-    while True:
-
-        # 1.- ASK FOR CAPITAL
-        capital = input('Introduce location: ').lower()
-
-        # Find woeid of city
-        woeid = get_woeid(capital)
-
-        # 2.- PRINT INFO
-
-        # Time
-
-        # Temperature
-
-        # Sunset
+    # Sunset
 
 
 
