@@ -4,6 +4,7 @@
 import http.client
 import json
 
+
 # -- API information
 HOSTNAME = "www.metaweather.com"
 ENDPOINT = "/api/location/"
